@@ -1,0 +1,6 @@
+site.retry
+terraform.tfstate
+terraform.tfstate.backup
+opennebula_hosts
+
+.terraform/*

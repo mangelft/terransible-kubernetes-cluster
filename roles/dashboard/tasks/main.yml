@@ -1,0 +1,17 @@
+---
+
+- name: Check Kubernetes dashboard is working
+  shell: |
+    kubectl get pods --all-namespaces | grep kubernetes-dashboard
+#  delegate_to: "{{ groups['master'][0] }}"
+  run_once: true
+  register: check_dashboard
+  ignore_errors: true
+
+- name: Create Kubernetes Dashboard
+  when: check_dashboard|failed
+  shell: |
+    kubectl create -f {{ dashboard_url }}
+#  delegate_to: "{{ groups['master'][0] }}"
+  run_once: true
+

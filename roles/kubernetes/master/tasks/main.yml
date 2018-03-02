@@ -1,0 +1,38 @@
+---
+
+- name: Reset Kubernetes component
+  shell: |
+    kubeadm reset
+  register: reset_cluster
+
+- name: Generate cluster token
+  command: kubeadm token generate
+  register: token
+  when: token is not defined
+
+- set_fact: kubeadm_token={{token.stdout}}
+
+- name: Init Kubernetes cluster
+  when: reset_cluster|succeeded
+  shell: |
+    kubeadm init --token {{ kubeadm_token }} \
+                 {{ init_opts }}
+  register: init_cluster
+
+- name: Create Kubernetes config directory
+  file: path=/root/.kube/ state=directory
+
+- name: Copy admin.conf to Home directory
+  when: init_cluster
+  copy:
+    src: "{{ kubeadm_config }}"
+    dest: "/root/.kube/config"
+    owner: root
+    group: root
+    mode: 0755
+    remote_src: true
+
+- name: Create cluster network
+  shell: kubectl apply -f {{ network_addon_url }}
+
+  

@@ -1,0 +1,11 @@
+---
+
+init_opts: ""
+
+kubeadm_config: /etc/kubernetes/admin.conf
+
+kubeadm_token: ""
+
+network_addon_url: "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')" 
+
+dashboard_url: "https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml"

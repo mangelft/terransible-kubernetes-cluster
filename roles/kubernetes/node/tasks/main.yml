@@ -1,0 +1,13 @@
+---
+
+- name: Reset Kubernetes component
+  shell: "kubeadm reset"
+  register: reset_cluster
+
+- name: Join to Kubernetes cluster
+  when: reset_cluster|succeeded
+  shell: |
+    kubeadm join --token {{ hostvars[groups['master'][0]]['kubeadm_token'] }} \
+                 {{ groups['master'][0] }}:6443 \
+                 --discovery-token-unsafe-skip-ca-verification
+  register: join_cluster
