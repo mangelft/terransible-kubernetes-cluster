@@ -99,6 +99,8 @@ To actually create the instance, run the `terraform apply` command:
 
 <img src="images/one-vms.png">
 
+The last step is to complete the cluster life cycle by removing your resources, do: `terraform destroy`
+
 Created by:
 
 Miguel Ángel Flores - (miguel.angel.flores@csuc.cat)
