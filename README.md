@@ -76,6 +76,20 @@ providers {
 }
 ```
 
+#### Deploy a Kubernetes cluster
+
+Terraform code is written in a language called HCL in files with the extension “.tf”. 
+
+
+In a terminal, go into the folder where you created main.tf, and run the `terraform plan` command:
+
+<img src="images/terraform-plan.png">
+
+The plan command lets you see what Terraform will do before actually doing it.
+
+To actually create the instance, run the `terraform apply` command:
+
+<img src="images/one-vms.png">
 
 Created by:
 
