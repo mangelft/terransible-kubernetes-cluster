@@ -19,6 +19,7 @@ After installing Terraform, verify the installation worked by opening a new term
 	$ export PATH=$PATH:/bin/terraform
 	$ terraform --version
 
+<img src="images/terraform-version.png">
 
 ####  Installing Terraform provider Opennebula
 
