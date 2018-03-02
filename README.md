@@ -82,6 +82,12 @@ Terraform code is written in a language called HCL in files with the extension â
 
 This repository provide an Ansible playbook to Build a Kubernetes cluster with kubeadm. The goal is easily install a Kubernetes cluster on machines running `CentOS 7`
 
+First, initialize Terraform for your project. This will read your configuration files and install the plugins for your provider:
+
+	$ terraform init
+
+
+<img src="images/terraform-init.png">
 
 In a terminal, go into the folder where you created main.tf, and run the `terraform plan` command:
 
