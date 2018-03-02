@@ -78,7 +78,9 @@ providers {
 
 #### Deploy a Kubernetes cluster
 
-Terraform code is written in a language called HCL in files with the extension “.tf”. 
+Terraform code is written in a language called HCL in files with the extension “.tf”. It is a declarative language, so your goal is to describe the infrastructure you want, and Terraform will figure out how to create it.
+
+This repository provide an Ansible playbook to Build a Kubernetes cluster with kubeadm. The goal is easily install a Kubernetes cluster on machines running `CentOS 7`
 
 
 In a terminal, go into the folder where you created main.tf, and run the `terraform plan` command:
