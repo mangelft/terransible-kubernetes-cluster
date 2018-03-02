@@ -30,10 +30,10 @@ Install Prerequisites
 
 Use the wget command and the link from Go to download the tarball:
 
-wget https://dl.google.com/go/go1.10.linux-amd64.tar.gz
+	$ wget https://dl.google.com/go/go1.10.linux-amd64.tar.gz
 
 
-The installation of Go consists of extracting the tarball into the /usr/local 
+The installation of Go consists of extracting the tarball into the `/usr/local` 
 
 	$ tar -C /usr/local -xvzf  go1.10.linux-amd64.tar.gz 
 
@@ -46,6 +46,7 @@ To execute Go like any other command, we need to append its install location to 
 	$ export PATH=$PATH:/usr/local/go/bin
 
 Additionally, define the GOPATH and GOBIN Go environment variables:
+	
 	$ export GOBIN="$HOME/projects/bin"
 	$ export GOPATH="$HOME/projects/src"
 
@@ -53,6 +54,26 @@ After go is installed and set up, just type:
 
     $ go get github.com/runtastic/terraform-provider-opennebula
     $ go install github.com/runtastic/terraform-provider-opennebula
+
+#### Optional post-installation Step
+
+Copy your **terraform-provider-opennebula** binary in a folder, like `/usr/local/bin`, and write this in `~/.terraformrc`:
+
+	$ cp ~/projects/bin/terraform-provider-opennebula /usr/local/bin/terraform-provider-opennebula
+
+```
+providers {
+  opennebula = "$YOUR_PROVIDER_PATH"
+}
+```
+
+Example for `/usr/local/bin`:
+
+```
+providers {
+  opennebula = "/usr/local/bin/terraform-provider-opennebula"
+}
+```
 
 
 Created by:
