@@ -76,6 +76,18 @@ providers {
 }
 ```
 
+#### Install Ansible
+
+We can add the Ansible PPA by typing the following command:
+
+	$ sudo apt-add-repository ppa:ansible/ansible
+
+Next, we need to refresh our system's package index so that it is aware of the packages available in the PPA. Afterwards, we can install the software:
+
+	$ sudo apt-get update
+    $ sudo apt-get install ansible
+
+
 ### Deploy a Kubernetes cluster
 
 Terraform code is written in a language called HCL in files with the extension “.tf”. It is a declarative language, so your goal is to describe the infrastructure you want, and Terraform will figure out how to create it.
