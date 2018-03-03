@@ -60,8 +60,8 @@ EOD
     
     connection {
        host = "${opennebula_vm.kube-master-vm.ip}" 
-       user = "root"
-       private_key = "${file("/root/.ssh/id_rsa")}"
+       user = "${var.one_username}"
+       private_key = "${file("${var.key_path}/.ssh/id_rsa")}"
     }   
   }
 
@@ -70,8 +70,8 @@ EOD
 
     connection {
        host = "${opennebula_vm.kube-node-vm.ip}"
-       user = "root"
-       private_key = "${file("/root/.ssh/id_rsa")}"
+       user = "${var.one_username}"
+       private_key = "${file("${var.key_path}/.ssh/id_rsa")}"
     }
   }
 

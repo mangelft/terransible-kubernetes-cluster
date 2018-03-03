@@ -1,7 +1,8 @@
 CONTEXT = [
   NETWORK = "YES",
   SSH_PUBLIC_KEY = "$$USER[SSH_PUBLIC_KEY]",
-  SET_HOSTNAME="kube-master"
+  SET_HOSTNAME="kube-master",
+  USERNAME = "$$UNAME"
 ]
 CPU = "1"
 DISK = [
