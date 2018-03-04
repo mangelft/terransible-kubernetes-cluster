@@ -101,7 +101,7 @@ First, initialize Terraform for your project. This will read your configuration 
 	$ terraform init
 
 
-<img src="images/terraform-init.png" width="80%">
+<img src="images/terraform-init.png" width="60%">
 
 In a terminal, go into the folder where you created main.tf, and run the `terraform plan` command:
 
@@ -122,7 +122,7 @@ You can access Dashboard using the kubectl command-line tool by running the foll
 
 The last step is to complete the cluster life cycle by removing your resources, do: `terraform destroy`
 
-<img src="images/terraform-destroy.png" width="75%">
+<img src="images/terraform-destroy.png" width="50%">
 
 Created by:
 
