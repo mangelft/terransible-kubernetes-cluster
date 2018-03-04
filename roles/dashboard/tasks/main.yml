@@ -15,3 +15,24 @@
 #  delegate_to: "{{ groups['master'][0] }}"
   run_once: true
 
+- name:  Copy Kubernetes dashboard RBAC yml file
+  copy:
+    src: dashboard-admin.yaml
+    dest: /tmp/dashboard-admin.yaml
+
+- name: Check Kubernetes dashboard role already exists
+  shell: |
+    kubectl get clusterrolebinding | grep kubernetes-dashboard
+#  delegate_to: "{{ groups['master'][0] }}"
+  run_once: true
+  register: check_role
+  ignore_errors: true
+
+- name: Create Kubernetes dashboard role
+  when: check_role|failed
+  shell: |
+    kubectl create -f {{ kube_addon_dir }}/kube-dash-rbac.yml
+#  delegate_to: "{{ groups['master'][0] }}"
+  run_once: true
+register: create_role
+
