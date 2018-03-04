@@ -113,7 +113,16 @@ To actually create the instance, run the `terraform apply` command:
 
 <img src="images/one-vms.png">
 
+You can access Dashboard using the kubectl command-line tool by running the following command:
+
+	$ kubectl proxy --address $MASTER_IP --accept-hosts='^*$'
+
+<img src="images/kubernetes-dashboard.png">
+
+
 The last step is to complete the cluster life cycle by removing your resources, do: `terraform destroy`
+
+<img src="images/terraform-destroy.png">
 
 Created by:
 
