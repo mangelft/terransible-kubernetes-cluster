@@ -31,8 +31,8 @@
 - name: Create Kubernetes dashboard role
   when: check_role|failed
   shell: |
-    kubectl create -f {{ kube_addon_dir }}/kube-dash-rbac.yml
+    kubectl create -f /tmp/dashboard-admin.yaml
 #  delegate_to: "{{ groups['master'][0] }}"
   run_once: true
-register: create_role
+  register: create_role
 
