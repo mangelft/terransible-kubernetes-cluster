@@ -30,7 +30,7 @@ resource "opennebula_vm" "kube-node-vm" {
   permissions = "600"
 
   # This will create 1 instances
-  count = 2
+  count = 1
 }
 
 resource "null_resource" "kubernetes" {
@@ -52,7 +52,7 @@ EOD
   }
 
   provisioner "local-exec" {
-     command =  "ansible-playbook -i opennebula_hosts site.yml --ask-sudo-pass"
+     command =  "ansible-playbook -i opennebula_hosts site.yml"
   }
 
 }
@@ -61,19 +61,19 @@ EOD
 #-------OUTPUTS ------------
 
 output "kube-master-vm_id" {
-  value = "${join("\n", opennebula_vm.kube-master-vm.*.id)}"
+  value = "${opennebula_vm.kube-master-vm.*.id}"
 }
 
 output "kube-master-vm_ip" {
-  value = "${join("\n", opennebula_vm.kube-master-vm.*.ip)}"
+  value = "${opennebula_vm.kube-master-vm.*.ip}"
 }
 
 
 output "kube-node-vm_id" {
-  value = "${join("\n", opennebula_vm.kube-master-vm.*.id)}"
+  value = "${opennebula_vm.kube-node-vm.*.id}"
 }
 
 output "kube-node-vm_ip" {
-  value = "${join("\n", opennebula_vm.kube-master-vm.*.ip)}"
+  value = "${opennebula_vm.kube-node-vm.*.ip}"
 }
 

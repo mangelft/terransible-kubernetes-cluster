@@ -111,6 +111,8 @@ The plan command lets you see what Terraform will do before actually doing it.
 
 To actually create the instance, run the `terraform apply` command:
 
+<img src="images/terraform-apply.png">
+
 <img src="images/one-vms.png">
 
 You can access Dashboard using the kubectl command-line tool by running the following command:
@@ -122,7 +124,7 @@ You can access Dashboard using the kubectl command-line tool by running the foll
 
 The last step is to complete the cluster life cycle by removing your resources, do: `terraform destroy`
 
-<img src="images/terraform-destroy.png" width="50%">
+<img src="images/terraform-destroy.png" width="60%">
 
 Created by:
 
