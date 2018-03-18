@@ -6,12 +6,12 @@
 
 To install Terraform, find the appropriate package for your system and download it
 
-	$ curl -O  https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_linux_amd64.zip
+	$ curl -O https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip
 
 After downloading Terraform, unzip the package
 
 	$ sudo mkdir /bin/terraform
-	$ sudo unzip terraform_0.11.3_linux_amd64.zip -d /bin/terraform/
+	$ sudo unzip terraform_0.11.4_linux_amd64.zip -d /bin/terraform
 
 
 After installing Terraform, verify the installation worked by opening a new terminal session and checking that terraform is available. 

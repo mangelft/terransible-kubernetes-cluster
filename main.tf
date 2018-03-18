@@ -4,38 +4,33 @@ provider "opennebula" {
   password = "${var.one_password}"
 }
 
-data "template_file" "tf-kube-master-template" {
-  template = "${file("kube-master.tpl")}"
+data "template_file" "tf-kube-template" {
+  template = "${file("kube-template.tpl")}"
 }
 
-resource "opennebula_template" "tf-kube-master-template" {
-  name = "terraform-kube-master-template"
-  description = "${data.template_file.tf-kube-master-template.rendered}"
+resource "opennebula_template" "tf-kube-template" {
+  name = "terraform-kube-template"
+  description = "${data.template_file.tf-kube-template.rendered}"
   permissions = "600"
 }
 
-
-data "template_file" "tf-kube-node-template" {
-  template = "${file("kube-node.tpl")}"
-}
-
-resource "opennebula_template" "tf-kube-node-template" {
-  name = "terraform-kube-node-template"
-  description = "${data.template_file.tf-kube-node-template.rendered}"
-  permissions = "600"
-}
 
 resource "opennebula_vm" "kube-master-vm" {
   name = "terraform-kube-master"
-  template_id = "${opennebula_template.tf-kube-master-template.id}"
+  template_id = "${opennebula_template.tf-kube-template.id}"
   permissions = "600"
+
+  # This will create 1 instances
+  count = 1
 }
 
-
 resource "opennebula_vm" "kube-node-vm" {
-  name = "terraform-kube-node"
-  template_id = "${opennebula_template.tf-kube-node-template.id}"
+  name = "terraform-kube-node${count.index}"
+  template_id = "${opennebula_template.tf-kube-template.id}"
   permissions = "600"
+
+  # This will create 1 instances
+  count = 2
 }
 
 resource "null_resource" "kubernetes" {
@@ -43,10 +38,11 @@ resource "null_resource" "kubernetes" {
     command = <<EOD
     cat <<EOF > opennebula_hosts
 [master]
-${opennebula_vm.kube-master-vm.ip}
+${join("\n", opennebula_vm.kube-master-vm.*.ip)}
 
 [node]
-${opennebula_vm.kube-node-vm.ip}
+${join("\n", opennebula_vm.kube-node-vm.*.ip)}
+
 
 [kube-cluster:children]
 master
@@ -55,28 +51,8 @@ EOF
 EOD
   }
 
-  provisioner "remote-exec" {
-    inline = ["# Master Connected!"]
-    
-    connection {
-       host = "${opennebula_vm.kube-master-vm.ip}" 
-       user = "${var.one_username}"
-       private_key = "${file("${var.key_path}/.ssh/id_rsa")}"
-    }   
-  }
-
-  provisioner "remote-exec" {
-    inline = ["# Node Connected!"]
-
-    connection {
-       host = "${opennebula_vm.kube-node-vm.ip}"
-       user = "${var.one_username}"
-       private_key = "${file("${var.key_path}/.ssh/id_rsa")}"
-    }
-  }
-
   provisioner "local-exec" {
-     command =  "ansible-playbook -i opennebula_hosts site.yml"
+     command =  "ansible-playbook -i opennebula_hosts site.yml --ask-sudo-pass"
   }
 
 }
@@ -85,9 +61,19 @@ EOD
 #-------OUTPUTS ------------
 
 output "kube-master-vm_id" {
-  value = "${opennebula_vm.kube-master-vm.id}"
+  value = "${join("\n", opennebula_vm.kube-master-vm.*.id)}"
 }
 
 output "kube-master-vm_ip" {
-  value = "${opennebula_vm.kube-master-vm.ip}"
+  value = "${join("\n", opennebula_vm.kube-master-vm.*.ip)}"
 }
+
+
+output "kube-node-vm_id" {
+  value = "${join("\n", opennebula_vm.kube-master-vm.*.id)}"
+}
+
+output "kube-node-vm_ip" {
+  value = "${join("\n", opennebula_vm.kube-master-vm.*.ip)}"
+}
+
