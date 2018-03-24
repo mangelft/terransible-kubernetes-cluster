@@ -6,12 +6,12 @@ CONTEXT = [
 ]
 CPU = "0.25"
 DISK = [
-  IMAGE_ID = "4" ]
+  IMAGE_ID = "5" ]
 GRAPHICS = [
   LISTEN = "0.0.0.0",
   TYPE = "VNC" ]
 INPUTS_ORDER = ""
-LOGO = "images/logos/centos.png"
+LOGO = "images/logos/debian.png"
 MEMORY = "1024"
 MEMORY_UNIT_COST = "MB"
 NIC = [
