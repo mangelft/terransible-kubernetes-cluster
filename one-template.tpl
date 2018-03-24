@@ -6,7 +6,7 @@ CONTEXT = [
 ]
 CPU = "0.25"
 DISK = [
-  IMAGE_ID = "5" ]
+  IMAGE_ID = "6" ]
 GRAPHICS = [
   LISTEN = "0.0.0.0",
   TYPE = "VNC" ]
