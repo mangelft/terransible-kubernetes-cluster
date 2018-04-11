@@ -23,11 +23,11 @@ resource "opennebula_vm" "one-vm" {
   count = 1
   
   provisioner "local-exec" {
-    command = "tower-cli host create --name element(opennebula_vm.one-vm.*.ip,count.index) --inventory jenkins"
+    command = "tower-cli host create --name ${opennebula_vm.terraform-one-vm-${count.index}.ip} --inventory jenkins"
   }
 
   provisioner "local-exec" {
-    command = "tower-cli host associate --host element(opennebula_vm.one-vm.*.ip,count.index) --group webserver"
+    command = "tower-cli host associate --host ${opennebula_vm.terraform-one-vm-${count.index}.ip} --group webserver"
   }
 
 }
