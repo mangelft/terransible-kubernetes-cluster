@@ -15,12 +15,21 @@ resource "opennebula_template" "tf-one-template" {
 }
 
 resource "opennebula_vm" "one-vm" {
-  name = "terraform-one-vm"
+  name = "terraform-one-vm-${count.index}"
   template_id = "${opennebula_template.tf-one-template.id}"
   permissions = "600"
 
-  # This will create 2 instances
-  count = 2
+  # This will create 1 instances
+  count = 1
+  
+  provisioner "local-exec" {
+    command = "tower-cli host create --name ${element(opennebula_vm.one-vm.*.ip,count.index)} --inventory jenkins"
+  }
+
+  provisioner "local-exec" {
+    command = "tower-cli host associate --host ${element(opennebula_vm.one-vm.*.ip,count.index)} --group webserver"
+  }
+
 }
 
 #-------OUTPUTS ------------
