@@ -28,8 +28,8 @@ resource "opennebula_vm" "one-vm" {
   template_id = "${opennebula_template.tf-one-template.id}"
   permissions = "600"
 
-  # This will create 2 instances
-  count = 2
+  # This will create 1 instances
+  count = 1
   
   provisioner "local-exec" {
     command = "tower-cli host create --name ${self.ip} --inventory jenkins"
