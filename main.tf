@@ -1,3 +1,12 @@
+terraform {
+    backend "consul" {
+    address         = "${var.consul_address}"
+    path            = "terraform/tfstate"
+    access_token    = "supersecure"
+    lock            = true
+  }
+}
+
 provider "opennebula" {
   endpoint = "${var.endpoint_url}"
   username = "${var.one_username}"
