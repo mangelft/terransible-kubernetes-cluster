@@ -1,6 +1,6 @@
 terraform {
     backend "consul" {
-    address         = "${var.consul_address}"
+    address         = "192.168.1.210:8500"
     path            = "terraform/tfstate"
     access_token    = "supersecure"
     lock            = true
